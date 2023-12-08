@@ -2,17 +2,17 @@ namespace Advent2;
 
 public static class Utils
 {
-    static int[] GetNumbers(string line)
+    public static int[] GetNumbers(string line)
     {
         return line.Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
     }
-    static int[] GetNumbersAfterSeparator(string line)
+    public static int[] GetNumbersAfterSeparator(string line)
     {
         return line.Split(':', StringSplitOptions.RemoveEmptyEntries)[1].Trim()
             .Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
     }
     
-    static int HasNumber(string s, int starIndex)
+    public static int HasNumber(string s, int starIndex)
     {
         if (char.IsDigit(s[starIndex])) return GetNumber(s, starIndex);
         if(starIndex>0 && char.IsDigit(s[starIndex-1])) return GetNumber(s, starIndex-1);
@@ -20,13 +20,13 @@ public static class Utils
         return 0;
     }
     
-    static int HasNumberBefore(string s, int starIndex)
+    public static int HasNumberBefore(string s, int starIndex)
     {
         if (starIndex == 0) return 0;
         if( char.IsDigit(s[starIndex-1])) return GetNumber(s, starIndex-1);
         return 0;
     }
-    static int HasNumberAfter(string s, int starIndex)
+    public static int HasNumberAfter(string s, int starIndex)
     {
         if (starIndex == s.Length-1) return 0;
         if(char.IsDigit(s[starIndex+1]))
@@ -63,4 +63,17 @@ public static class Utils
             into grp
             where grp.Count() > 1
             select grp.Key).Count();
+    
+    public static long LCM(long[] numbers)
+    {
+        return numbers.Aggregate(lcm);
+    }
+    static long lcm(long a, long b)
+    {
+        return Math.Abs(a * b) / GCD(a, b);
+    }
+    static long GCD(long a, long b)
+    {
+        return b == 0 ? a : GCD(b, a % b);
+    }
 }
