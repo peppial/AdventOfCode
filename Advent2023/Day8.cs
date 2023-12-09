@@ -26,10 +26,12 @@ public class Day8(string[] lines)
         while (nextInstruction != "ZZZ")
         {
             var step = dict[nextInstruction];
-            if (instructions[instructionCount] == 'L')
-                nextInstruction = step.Left;
-            else
-                nextInstruction = step.Right;
+            nextInstruction = instructions[instructionCount] switch
+            {
+                'L' => dict[nextInstruction].Left,
+                'R' => dict[nextInstruction].Right
+            };
+            
             instructionCount++;
             stepCount++;
             if (instructionCount == instructions.Length) instructionCount = 0;
@@ -44,10 +46,7 @@ public class Day8(string[] lines)
         for (int i = 2; i < lines.Length; i++)
         {
             string[] parts = lines[i].SplitDefault(" ()=,");
-            string label = parts[0];
-            string left = parts[1];
-            string right = parts[2];
-            dict.Add(label, new Instruction(left,right));
+            dict.Add(parts[0], new Instruction(parts[1],parts[2]));
         }
 
         return dict;
@@ -70,10 +69,12 @@ public class Day8(string[] lines)
             var nextInstruction = startInstruction;
             while (!nextInstruction.EndsWith("Z"))
             {
-                if (instructions[instructionCount] == 'L')
-                    nextInstruction = dict[nextInstruction].Left;
-                else
-                    nextInstruction = dict[nextInstruction].Right;
+                nextInstruction = instructions[instructionCount] switch
+                {
+                    'L' => dict[nextInstruction].Left,
+                    'R' => dict[nextInstruction].Right
+                };
+   
                 stepCount++;
                 instructionCount++;
                 if (instructionCount == instructions.Length) instructionCount = 0;
