@@ -1,7 +1,8 @@
 namespace Advent2023;
 
 readonly record struct Instruction(string Left, string Right);
-public class Day8(string[] lines)
+
+public class Day8(string[] lines):IDay
 {
     
     private static Instruction Parse(string line)

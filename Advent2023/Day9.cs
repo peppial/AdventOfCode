@@ -1,6 +1,6 @@
 namespace Advent2023;
 
-public class Day9(string[] lines)
+public class Day9(string[] lines) : IDay
 {
     
     public long GetTotalPartA()
@@ -61,4 +61,6 @@ public class Day9(string[] lines)
         return newValue;
     }
 }
+
+
 

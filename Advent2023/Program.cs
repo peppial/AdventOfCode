@@ -5,7 +5,7 @@ using Advent2023;
 
 Console.WriteLine(DateTime.Now) ;
 var lines = File.ReadAllLines("Test.txt");
-var day = new Day8(lines);
+var day = new Day10(lines);
 Console.WriteLine("-----------");
 Console.WriteLine(day.GetTotalPartB());
 Console.WriteLine(DateTime.Now) ;
