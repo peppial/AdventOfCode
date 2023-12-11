@@ -2,26 +2,25 @@ namespace Advent2023;
 
 public class Day10(string[] lines): IDay
 {
-    
     public long GetTotalPartA()
     {
         (var row, var column) = GetSPosition();
 
         Dictionary<char, int[]> tiledict = GetDictionary();
 
-        static int[] Sub(int[] src, int[] dir)
+        static int[] Sub(int[] src, int[] direction)
         {
             int[] result = new int[src.Length];
 
             for (int i = 0; i < src.Length; i++)
             {
-                result[i] = src[i] - dir[(i + 2) % 4];
+                result[i] = src[i] - direction[(i + 2) % 4];
             }
             return result;
         }
 
         int steps = 1;
-        int[] direction = { 0, 0, 1, 0 };
+        int[] direction = [ 0, 0, 1, 0 ];
         row += 1;
         char tile = lines[row][column];
 
@@ -46,15 +45,15 @@ public class Day10(string[] lines): IDay
 
         (var row, var column) = GetSPosition();
 
-        (int[], int) Sub(int[] src, int[] dir)
+        (int[], int) Sub(int[] src, int[] direction)
         {
             int[] newDirection = new int[src.Length];
             Array.Copy(src, newDirection, src.Length);
             for (int i = 0; i < src.Length; i++)
             {
-                newDirection[i] -= dir[(i + 2) % 4];
+                newDirection[i] -= direction[(i + 2) % 4];
             }
-            int rotation = Array.IndexOf(newDirection, 1) - Array.IndexOf(dir, 1);
+            int rotation = Array.IndexOf(newDirection, 1) - Array.IndexOf(direction, 1);
             if (rotation != 0)
             {
                 rotation = (4 - rotation) % 4 - 2;
@@ -73,11 +72,11 @@ public class Day10(string[] lines): IDay
             int j = Array.IndexOf(directions, 1);
             (directions, int rotation) = Sub(tiledict[tile], directions);
             totalRotations += rotation;
-            (int, int)[] neighbours = new (int, int)[]
-            {
+            (int, int)[] neighbours = 
+            [
                 (row, column + 1), (row - 1, column), (row, column - 1), (row + 1, column),
                 (row + 1, column + 1), (row + 1, column - 1), (row - 1, column + 1), (row - 1, column - 1)
-            };
+            ];
             int i = Array.IndexOf(directions, 1);
             cw.Add(neighbours[i]);
             ccw.Add(neighbours[(i + 2) % 4]);
@@ -98,19 +97,17 @@ public class Day10(string[] lines): IDay
 
         while (adjacent.Count > 0)
         {
-            (int, int) coord = adjacent.First();
+            (int rowItem, int colItem) coord = adjacent.First();
             adjacent.Remove(coord);
-            int rowItem = coord.Item1;
-            int colItem = coord.Item2;
+            int rowItem = coord.rowItem;
+            int colItem = coord.colItem;
             if (!Valid(rowItem, colItem) || inside.Contains(coord) || loop.Contains(coord))
             {
                 continue;
             }
             inside.Add(coord);
-            (int, int)[] neighbours = new (int, int)[]
-            {
-                (rowItem, colItem + 1), (rowItem + 1, colItem), (rowItem, colItem - 1), (rowItem - 1, colItem)
-            };
+            (int, int)[] neighbours = 
+            [(rowItem, colItem + 1), (rowItem + 1, colItem), (rowItem, colItem - 1), (rowItem - 1, colItem)];
             foreach ((int, int) n in neighbours)
             {
                 if (Valid(n.Item1, n.Item2) && !loop.Contains(n) && !adjacent.Contains(n) && !inside.Contains(n))
