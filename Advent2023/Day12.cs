@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using System.Text.RegularExpressions;
 
 namespace Advent2023;
@@ -53,13 +54,13 @@ public class Day12(string[] lines) : IDay
 		return result;
 	}
 
-	private static Dictionary<string, long> scorePerSubInput { get; } = new();
+	private static ConcurrentDictionary<string, long> scorePerSubInput { get; } = new();
 
 	public long GetTotalPartB()
 	{
 		var inputLines = ParseInput(lines);
 		var unfoldedInputLines = inputLines.Select(t => UnfoldInputLine(t, 5));
-		var sum = unfoldedInputLines.Select(t => CountPossibilities(t.springStates, t.commands))
+		var sum = unfoldedInputLines.AsParallel().Select(t => CountPossibilities(t.springStates, t.commands))
 			.Aggregate((long)0, (current, count) => current + count);
 		return sum;
 		
