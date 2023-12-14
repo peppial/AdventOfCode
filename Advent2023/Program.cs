@@ -2,7 +2,7 @@
 
 Console.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff tt")) ;
 var lines = File.ReadAllLines("Test.txt");
-var day = new Day13(lines);
+var day = new Day14(lines);
 Console.WriteLine("-----------");
 Console.WriteLine(day.GetTotalPartA());
 Console.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff tt")) ;
