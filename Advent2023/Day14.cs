@@ -38,12 +38,11 @@ public class Day14(string[] lines):IDay
         return total;
     }
 
-    
-    
     public long GetTotalPartB()
     {
-        int total = 0;
+        List<string[]> cache = new();
         int cycle = 1;
+        bool cyclefound = false;
         while (cycle <= 1000000000)
         {
             //north
@@ -118,15 +117,46 @@ public class Day14(string[] lines):IDay
                 }
             }
 
+            if (!cyclefound)
+            {
+                var index = GetIndexOf(cache, lines);
+
+                if (index is not null)
+                {
+                    var cyclelen = cycle -1 - index.Value;
+                    var delta = (1000000000 - cycle) % cyclelen;
+                    var numberOfCycles = 1000000000 / cyclelen;
+                    cache.Add([..lines]);
+                    cycle = 1000000000 - delta;
+                    cyclefound = true;
+
+                }
+
+            }
+            
+            cache.Add([..lines]);
             cycle++;
         }
 
+        int total = 0;
         foreach (int row in lines.Length - 1)
         {
             total += lines[row].Count(x => x == 'O') * (lines.Length - row);
         }
         return total;
+
     }
+
+    private int? GetIndexOf(List<string[]> cache, string[] lines)
+    {
+        for (int j = 0; j < cache.Count; j++)
+        {
+            if (cache[j].SequenceEqual(lines)) return j;
+        }
+
+        return null;
+    }
+    
     private GridPoint FindNextO(GridPoint gp, Direction direction = Direction.North)
     {
         if (direction == Direction.North)
