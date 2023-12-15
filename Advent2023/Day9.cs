@@ -35,14 +35,8 @@ public class Day9(string[] lines) : IDay
     {
         int index =0;
         histories.Reverse();
-        int newValue = histories[0][^1];
-
-        while (index < histories.Count)
-        {
-            newValue+= histories[index][^1];
-            index++;
-        }
-
+        
+        int newValue = histories.Skip(index).Aggregate(0, (newValue, item) => (newValue + item[^1]));
         return newValue;
     }
     
@@ -50,14 +44,8 @@ public class Day9(string[] lines) : IDay
     {
         int index = 0;
         histories.Reverse();
-        int newValue = histories[0][0];
-
-        while (index < histories.Count)
-        {
-            newValue = histories[index][0]-newValue;
-            index++;
-        }
-
+       
+        int newValue = histories.Skip(index).Aggregate(0, (acc, item) => (item[0] - acc));
         return newValue;
     }
 }
