@@ -68,10 +68,10 @@ public class Day11 : IDay
     
     private int Distance(GridPoint g1, GridPoint g2, int exp)
     {
-        int r1 = Math.Min(g1.X, g2.X);
-        int c1 = Math.Min(g1.Y, g2.Y);
-        int r2 = Math.Max(g1.X, g2.X);
-        int c2 = Math.Max(g1.Y, g2.Y);
+        int r1 = Math.Min(g1.row, g2.row);
+        int c1 = Math.Min(g1.column, g2.column);
+        int r2 = Math.Max(g1.row, g2.row);
+        int c2 = Math.Max(g1.column, g2.column);
 
         int dr = r2 - r1 + exp * emptyRows.Count(r => r1 < r && r < r2);
         int dc = c2 - c1 + exp * emptyCols.Count(c => c1 < c && c < c2);

@@ -6,7 +6,7 @@ public static class PointExtensions
     {   
         return from d1 in items
             from d2 in items
-            where (d1.X!=d2.X ||d1.Y!=d2.Y)
+            where (d1.row!=d2.row ||d1.column!=d2.column)
             select (d1,d2);
     }
 }

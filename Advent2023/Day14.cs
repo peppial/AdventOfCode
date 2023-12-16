@@ -1,14 +1,15 @@
 namespace Advent2023;
 
-public enum Direction
-{
-    North=0,
-    West=1,
-    South=2,
-    East=3
-}
+
 public class Day14(string[] lines):IDay 
 {
+    enum Direction
+    {
+        North=0,
+        West=1,
+        South=2,
+        East=3
+    }
     int hLen = lines[0].Length;
     
     public long GetTotalPartA()
@@ -23,7 +24,7 @@ public class Day14(string[] lines):IDay
                     if (gp is not null)
                     {
                         lines[row] = lines[row].Substring(0, column) + 'O' + lines[row].Substring(column + 1);
-                        lines[gp.X] = lines[gp.X].Substring(0, column) + '.' + lines[gp.X].Substring(column + 1);
+                        lines[gp.row] = lines[gp.row].Substring(0, column) + '.' + lines[gp.row].Substring(column + 1);
                     }
                 }
             }
@@ -56,8 +57,8 @@ public class Day14(string[] lines):IDay
                         if (gp is not null)
                         {
                             lines[row] = lines[row].Substring(0, column) + 'O' + lines[row].Substring(column + 1);
-                            lines[gp.X] = lines[gp.X].Substring(0, column) + '.' +
-                                          lines[gp.X].Substring(column + 1);
+                            lines[gp.row] = lines[gp.row].Substring(0, column) + '.' +
+                                          lines[gp.row].Substring(column + 1);
                         }
                     }
                 }
@@ -74,8 +75,8 @@ public class Day14(string[] lines):IDay
                         if (gp is not null)
                         {
                             lines[row] = lines[row].Substring(0, column) + 'O' + lines[row].Substring(column + 1);
-                            lines[row] = lines[row].Substring(0, gp.Y) + '.' +
-                                         lines[row].Substring(gp.Y + 1);
+                            lines[row] = lines[row].Substring(0, gp.column) + '.' +
+                                         lines[row].Substring(gp.column + 1);
                         }
                     }
                 }
@@ -92,8 +93,8 @@ public class Day14(string[] lines):IDay
                         if (gp is not null)
                         {
                             lines[row] = lines[row].Substring(0, column) + 'O' + lines[row].Substring(column + 1);
-                            lines[gp.X] = lines[gp.X].Substring(0, column) + '.' +
-                                          lines[gp.X].Substring(column + 1);
+                            lines[gp.row] = lines[gp.row].Substring(0, column) + '.' +
+                                          lines[gp.row].Substring(column + 1);
                         }
                     }
                 }
@@ -110,8 +111,8 @@ public class Day14(string[] lines):IDay
                         if (gp is not null)
                         {
                             lines[row] = lines[row].Substring(0, column) + 'O' + lines[row].Substring(column + 1);
-                            lines[row] = lines[row].Substring(0, gp.Y) + '.' +
-                                         lines[row].Substring(gp.Y + 1);
+                            lines[row] = lines[row].Substring(0, gp.column) + '.' +
+                                         lines[row].Substring(gp.column + 1);
                         }
                     }
                 }
@@ -161,41 +162,41 @@ public class Day14(string[] lines):IDay
     {
         if (direction == Direction.North)
         {
-            int row = gp.X + 1;
+            int row = gp.row + 1;
             while (row < lines.Length)
             {
-                if (lines[row][gp.Y] == '#') break;
-                if (lines[row][gp.Y] == 'O') return new GridPoint(row, gp.Y);
+                if (lines[row][gp.column] == '#') break;
+                if (lines[row][gp.column] == 'O') return new GridPoint(row, gp.column);
                 row++;
             }
         }
         else if (direction == Direction.South)
         {
-            int row = gp.X - 1;
+            int row = gp.row - 1;
             while (row >= 0)
             {
-                if (lines[row][gp.Y] == '#') break;
-                if (lines[row][gp.Y] == 'O') return new GridPoint(row, gp.Y);
+                if (lines[row][gp.column] == '#') break;
+                if (lines[row][gp.column] == 'O') return new GridPoint(row, gp.column);
                 row--;
             }
         }
         else if (direction == Direction.West)
         {
-            int column = gp.Y + 1;
+            int column = gp.column + 1;
             while (column < hLen)
             {
-                if (lines[gp.X][column] == '#') break;
-                if (lines[gp.X][column] == 'O') return new GridPoint(gp.X, column);
+                if (lines[gp.row][column] == '#') break;
+                if (lines[gp.row][column] == 'O') return new GridPoint(gp.row, column);
                 column++;
             }
         }
         else if (direction == Direction.East)
         {
-            int column = gp.Y - 1;
+            int column = gp.column - 1;
             while (column >= 0)
             {
-                if (lines[gp.X][column] == '#') break;
-                if (lines[gp.X][column] == 'O') return new GridPoint(gp.X, column);
+                if (lines[gp.row][column] == '#') break;
+                if (lines[gp.row][column] == 'O') return new GridPoint(gp.row, column);
                 column--;
             }
         }
