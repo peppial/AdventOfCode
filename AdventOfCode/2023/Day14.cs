@@ -1,6 +1,5 @@
 namespace Advent2023;
 
-
 public class Day14(string[] lines):IDay 
 {
     enum Direction

@@ -1,4 +1,4 @@
-namespace Advent2023;
+namespace AdventOfCode;
 
 public interface IDay
 {

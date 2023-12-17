@@ -1,6 +1,3 @@
-using System.ComponentModel.Design;
-using System.Runtime.InteropServices;
-
 namespace Advent2023;
 
 public class Day16(string[] lines):IDay
