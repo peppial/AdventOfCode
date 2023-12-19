@@ -8,8 +8,4 @@
         <RootNamespace>Advent2023</RootNamespace>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Folder Include="Structures\" />
-    </ItemGroup>
-
 </Project>
