@@ -8,7 +8,7 @@ public static class StringExtensions
     }
     public static string[] SplitDefault(this string line, string chars)
     {
-        return line.Split(chars.ToCharArray(), 
+        return line.Split(chars, 
             StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
     }
   
