@@ -1,10 +1,12 @@
+using System.Text.RegularExpressions;
+
 namespace Advent2023;
 
 public static class StringExtensions
 {
     public static int[] GetNumbers(this string line)
     {
-        return line.Split(" ", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).Select(int.Parse).ToArray();
+        return Regex.Matches(line, "-?\\d+").Select(m => int.Parse(m.Value)).ToArray();    
     }
     public static string[] SplitDefault(this string line, string chars)
     {
