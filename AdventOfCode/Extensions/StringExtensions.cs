@@ -8,6 +8,10 @@ public static class StringExtensions
     {
         return Regex.Matches(line, "-?\\d+").Select(m => int.Parse(m.Value)).ToArray();    
     }
+    public static long[] GetNumbersLong(this string line)
+    {
+        return Regex.Matches(line, "-?\\d+").Select(m => long.Parse(m.Value)).ToArray();    
+    }
     public static string[] SplitDefault(this string line, string chars)
     {
         return line.Split(chars, 

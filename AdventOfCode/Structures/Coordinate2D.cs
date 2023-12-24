@@ -1,13 +1,13 @@
 namespace Advent2023.Structures;
 
 
-public record Coordinate2D(int X, int Y)
+public record Coordinate2D(long X, long Y)
 {
     public static readonly Coordinate2D origin = new(0, 0);
     public static readonly Coordinate2D unit_x = new(1, 0);
     public static readonly Coordinate2D unit_y = new(0, 1);
     
-    public Coordinate2D((int x, int y) coord):this(0,0)
+    public Coordinate2D((long x, long y) coord):this(0,0)
     {
         this.X = coord.x;
         this.Y = coord.y;
@@ -16,8 +16,8 @@ public record Coordinate2D(int X, int Y)
     public Coordinate2D(string StringPair):this(0,0)
     {
         var t = StringPair.Split(',');
-        X = int.Parse(t[0]);
-        Y = int.Parse(t[1]);
+        X = long.Parse(t[0]);
+        Y = long.Parse(t[1]);
     }
 
     public Coordinate2D RotateCW(int degrees, Coordinate2D center)
@@ -72,14 +72,14 @@ public record Coordinate2D(int X, int Y)
     public static Coordinate2D operator -(Coordinate2D a, Coordinate2D b) => a + (-b);
     public static Coordinate2D operator *(int scale, Coordinate2D a) => new(scale * a.X, scale * a.Y);
  
-    public static implicit operator Coordinate2D((int x, int y) a) => new(a.x, a.y);
+    public static implicit operator Coordinate2D((long x, long y) a) => new(a.x, a.y);
 
-    public static implicit operator (int x, int y)(Coordinate2D a) => (a.X, a.Y);
+    public static implicit operator (long x, long y)(Coordinate2D a) => (a.X, a.Y);
 
-    public int ManDistance(Coordinate2D other)
+    public long ManDistance(Coordinate2D other)
     {
-        int x = Math.Abs(this.X - other.X);
-        int y = Math.Abs(this.Y - other.Y);
+        long x = Math.Abs(this.X - other.X);
+        long y = Math.Abs(this.Y - other.Y);
         return x + y;
     }
 
@@ -93,7 +93,7 @@ public record Coordinate2D(int X, int Y)
         return string.Concat("(", X, ", ", Y, ")");
     }
 
-    public void Deconstruct(out int xVal, out int yVal)
+    public void Deconstruct(out long xVal, out long yVal)
     {
         xVal = X;
         yVal = Y;

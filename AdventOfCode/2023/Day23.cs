@@ -12,7 +12,7 @@ using Advent2023.Structures;
            return Solve(true);
        }
 
-
+       //TO be optimized
        public long GetTotalPartB()
        {
            return Solve(false);
@@ -25,7 +25,6 @@ using Advent2023.Structures;
            queue.Push(((0, startIndex), [(0, startIndex)], 0));
            Dictionary<Coordinate2D, bool> all = [];
 
-           HashSet<(int, int, int)> seen = [];
            foreach (int i in height - 1)
            {
                foreach (int j in (len - 1)) all[(i, j)] = (lines[i][j] != '#');
@@ -39,7 +38,7 @@ using Advent2023.Structures;
                if (steps > 7000) continue;
                //Console.WriteLine(start);
 
-               char symbol = lines[start.X][start.Y];
+               char symbol = lines[start.X][(int)start.Y];
 
                if (start.X == len - 1)
                {
@@ -96,5 +95,6 @@ using Advent2023.Structures;
            return maxSteps;
        }
    }
+   
    
    
