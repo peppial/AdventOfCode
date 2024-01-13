@@ -1,5 +1,7 @@
 namespace Advent2023;
 
+using AdventOfCode.Extensions;
+
 public class Day9(string[] lines) : IDay
 {
     

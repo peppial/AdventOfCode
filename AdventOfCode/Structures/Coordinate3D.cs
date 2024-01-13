@@ -1,5 +1,6 @@
 namespace Advent2023.Structures;
 
+using AdventOfCode.Extensions;
 public record Coordinate3D(int X, int Y, int Z)
 {
     public Coordinate3D(string line):this(0,0,0)

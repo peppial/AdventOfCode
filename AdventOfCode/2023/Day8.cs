@@ -1,5 +1,6 @@
 namespace Advent2023;
 
+using AdventOfCode.Extensions;
 readonly record struct Instruction(string Left, string Right);
 
 public class Day8(string[] lines):IDay

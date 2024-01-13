@@ -1,5 +1,6 @@
 using static Advent2023.MathUtils;
 
+using AdventOfCode.Extensions;
 namespace Advent2023;
 public class Day20(string[] lines):IDay 
 {

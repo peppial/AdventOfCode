@@ -1,5 +1,6 @@
 using System.Numerics;
 using Advent2023.Structures;
+using AdventOfCode.Extensions;
 
 namespace Advent2023;
 
