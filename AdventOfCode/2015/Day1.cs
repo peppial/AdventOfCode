@@ -1,6 +1,6 @@
 using AdventOfCode;
 
-namespace Advent2015;
+namespace AdventOfCode._2015;
 
 
 public class Day1(string[] lines):IDay

@@ -1,9 +1,9 @@
 ﻿global using AdventOfCode;
-
-using AdventOfCode._2022;
+using System.Collections.Specialized;
+using AdventOfCode._2015;
 
 Console.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff tt")) ;
-var lines = File.ReadAllLines("Test.txt");
-var day = new Day5(lines);
+var lines = File.ReadAllLines("Test.txt"); 
+var day = new Day9(lines);
 Console.WriteLine("-----------");
 Console.WriteLine(day.GetTotalPartB());
