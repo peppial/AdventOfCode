@@ -9,6 +9,12 @@ public class Day15(string[] lines):IDay
     long grandtotal = 100;
     public long GetTotalPartA()
     {
+        return GetMax(false);
+
+    }
+
+    private long GetMax(bool partB)
+    {
         foreach (string line in lines)
         {
             int[] numbers = line.GetNumbers();
@@ -19,14 +25,7 @@ public class Day15(string[] lines):IDay
 
        
         var index = 0;
-        long capacity = 0;
-        long durability = 0;
-        long flavor = 0;
-        long mixture = 0;
-      
-
-
-
+        
         var numIngredients = ingredients.Count;
         var total = 100;
         int[] baseList = Enumerable.Range(0, numIngredients).ToArray();
@@ -61,30 +60,38 @@ public class Day15(string[] lines):IDay
         }
 
         long totaltotal = 0;
+        
+        long capacity = 0;
+        long durability = 0;
+        long flavor = 0;
+        long mixture = 0;
+        long calories = 0;
         while (GetNext())
         {
             index = 0;
-            capacity = durability = flavor = mixture = 0;
+            capacity = durability = flavor = mixture = calories= 0;
             foreach (var ingredient in ingredients)
             {
                 capacity += currValue[index] * ingredient.Value[0];
                 durability += currValue[index] * ingredient.Value[1];
                 flavor += currValue[index] * ingredient.Value[2];
                 mixture += currValue[index] * ingredient.Value[3];
+                calories+=currValue[index] * ingredient.Value[4];
                 index++;
             }
 
             var t = (capacity>0?capacity:0) * (durability>0?durability:0) * (flavor>0?flavor:0) * (mixture>0?mixture:0);
-            if (t > totaltotal) totaltotal = t;
+            if (t > totaltotal && calories==500) totaltotal = t;
         }
 
         return totaltotal;
     }
 
-    
+
     public long GetTotalPartB()
     {
-        throw new NotImplementedException();
+        return GetMax(true);
+
     }
     
 }
