@@ -4,12 +4,13 @@ namespace AdventOfCode._2015;
 
 public class Day16(string[] lines):IDay
 {
-    Dictionary<string, int> dict = [];
+   
 
     record Gift(string SueNumber, string First, int FirstNum, string Second, int SecondNum, string Third, int ThirdNum);
     public long GetTotalPartA()
     {
-       
+
+        Dictionary<string, int> dict = Init();
         foreach (var line in lines)
         {
             var parts = line.Split(new char[]{' ',',',':'},StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
@@ -28,8 +29,9 @@ public class Day16(string[] lines):IDay
         return 0;
     }
 
-    private void Init()
+    private Dictionary<string, int> Init()
     {
+        Dictionary<string, int> dict = [];
         dict.Add("children",3);
         dict.Add("cats",7);
         dict.Add("samoyeds",2);
@@ -40,11 +42,14 @@ public class Day16(string[] lines):IDay
         dict.Add("trees",3);
         dict.Add("cars",2);
         dict.Add("perfumes",1);
+
+        return dict;
     }
 
     public long GetTotalPartB()
     {
-        Init();
+        Dictionary<string, int> dict = Init();
+
         
         foreach (var line in lines)
         {
@@ -52,9 +57,9 @@ public class Day16(string[] lines):IDay
             Gift gift = new Gift(parts[1], parts[2], int.Parse(parts[3]), parts[4], int.Parse(parts[5]), parts[6],
                 int.Parse(parts[7]));
 
-            if ( IsMatch(gift.FirstNum,gift.First)
-                && IsMatch(gift.SecondNum,gift.Second)
-                && IsMatch(gift.ThirdNum,gift.Third)
+            if ( IsMatch(dict, gift.FirstNum,gift.First)
+                && IsMatch(dict, gift.SecondNum,gift.Second)
+                && IsMatch(dict, gift.ThirdNum,gift.Third)
                )
                 return int.Parse(gift.SueNumber);
             
@@ -65,7 +70,7 @@ public class Day16(string[] lines):IDay
         
     }
 
-    private bool IsMatch(int number, string name)
+    private static bool IsMatch(Dictionary<string, int> dict, int number, string name)
     {
         if ((name == "cats" || name == "trees") && number > dict[name]) return true;
         if ((name == "pomeranians" || name == "goldfish") && number < dict[name]) return true;
