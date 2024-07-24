@@ -6,13 +6,20 @@ public class Day18(string[] lines):IDay
 {
     public long GetTotalPartA()
     {
+        var all = Iterate(true);
+
+        return all.Count(x => x.Value);
+    }
+
+    private Dictionary<Coordinate2D, bool> Iterate(bool partA)
+    {
         Dictionary<Coordinate2D, bool> all = [];
         
         for(int row=0; row<lines.Length; row++)
         {
             for (int column = 0; column < lines[0].Length; column++)
             {
-               all.Add(new Coordinate2D(row,column), lines[row][column]=='#');
+                all.Add(new Coordinate2D(row,column), lines[row][column]=='#');
             }
         }
         
@@ -24,8 +31,14 @@ public class Day18(string[] lines):IDay
             Dictionary<Coordinate2D, bool> clone = new Dictionary<Coordinate2D, bool>(all);
             for(int row=0; row<lines.Length; row++)
             {
+
                 for (int column = 0; column < lines[0].Length; column++)
                 {
+                    if(!partA)
+                    {
+                        if ((row==0 ||row==lines.Length-1) && (column==0 || column==lines[0].Length-1)) continue;
+                    } 
+
                     var coord = new Coordinate2D(row, column);
                     bool val = all[coord];
                     int lightsR = GetCountRound(coord,all);
@@ -37,9 +50,14 @@ public class Day18(string[] lines):IDay
             count++;
         }
 
+        return all;
+    }
+    public long GetTotalPartB()
+    {
+        var all = Iterate(false);
+
         return all.Count(x => x.Value);
     }
-
     private int GetCountRound(Coordinate2D coord, Dictionary<Coordinate2D, bool> all)
     {
         Coordinate2D[] array =
@@ -56,8 +74,5 @@ public class Day18(string[] lines):IDay
         ];
         return all.Count(x => x.Value && array.Contains(x.Key));
     }
-    public long GetTotalPartB()
-    {
-        throw new NotImplementedException();
-    }
+    
 }
