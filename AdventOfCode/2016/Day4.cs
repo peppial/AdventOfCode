@@ -4,7 +4,7 @@ namespace AdventOfCode._2016;
 
 public class Day4(string[] lines):IDay
 {
-    public long GetTotalPartA()
+    public long GetTotalPartA() 
     {
         int sum = 0;
         foreach (string line in lines)
