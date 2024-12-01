@@ -31,8 +31,6 @@ public class Day1(string[] lines):IDay
         List<int> list1 = [];
         Dictionary<int,int> dict = [];
         
-        
-        
         foreach (string line in lines)
         {
             int[] parts = line.GetNumbers();
