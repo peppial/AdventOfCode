@@ -14,8 +14,8 @@ public class Day4(string[] lines): IDay
         {
             for (int j = 0; j < columns; j++)
             {
-                    if (j + 3 < columns  && $"{lines[i][j]}{lines[i][j+1]}{lines[i][j+2]}{lines[i][j+3]}" == "XMAS") count++;
-                    if (j - 3 >= 0 && $"{lines[i][j]}{lines[i][j-1]}{lines[i][j-2]}{lines[i][j-3]}" == "XMAS") count++;
+                    if (j + 3 < columns  && $"{lines[i][j]}{lines[i][j+1]}{lines[i][j+2]}{lines[i][j+3]}" == XMAS) count++;
+                    if (j - 3 >= 0 && $"{lines[i][j]}{lines[i][j-1]}{lines[i][j-2]}{lines[i][j-3]}" == XMAS) count++;
                     if (i + 3 < rows && $"{lines[i][j]}{lines[i+1][j]}{lines[i+2][j]}{lines[i+3][j]}" == XMAS) count++;
                     if (i - 3 >= 0 && $"{lines[i][j]}{lines[i-1][j]}{lines[i-2][j]}{lines[i-3][j]}" == XMAS) count++;
                     if (j + 3 < columns && i - 3 >= 0 && $"{lines[i][j]}{lines[i-1][j+1]}{lines[i-2][j+2]}{lines[i-3][j+3]}" == XMAS) count++;
