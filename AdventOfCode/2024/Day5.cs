@@ -47,6 +47,7 @@ public class Day5(string[] lines): IDay
         }
 
         long sum = 0;
+        
         if (partA)
         {
             foreach (var page in okpages)
