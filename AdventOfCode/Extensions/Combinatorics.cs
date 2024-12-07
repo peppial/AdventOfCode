@@ -97,4 +97,18 @@ public static class Combinatorics
             yield return indices.Select(x => items[x]).ToArray();
         while (NextPermutation(indices));
     }
+    
+    public static string[] GenerateAllBinaryStrings(int length)
+    {
+        List<string> binaryStrings = new List<string>();
+        int totalStrings = 1 << length;
+
+        for (int i = 0; i < totalStrings; i++)
+        {
+            string binaryString = Convert.ToString(i, 2).PadLeft(length, '0');
+            binaryStrings.Add(binaryString);
+        }
+
+        return binaryStrings.ToArray();
+    }
 }
