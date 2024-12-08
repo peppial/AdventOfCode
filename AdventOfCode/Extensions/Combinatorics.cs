@@ -100,7 +100,7 @@ public static class Combinatorics
     
     public static string[] GenerateAllBinaryStrings(int length)
     {
-        List<string> binaryStrings = new List<string>();
+        List<string> binaryStrings = [];
         int totalStrings = 1 << length;
 
         for (int i = 0; i < totalStrings; i++)
