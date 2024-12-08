@@ -33,7 +33,7 @@ public class Day8(string[] lines): IDay
                     var positions0 = positions[pos0];
                     var positions1 = positions[pos1];
                     
-                    while (count < 200)
+                    while (true)
                     {
                         int row1 = 2 * positions0.row - positions1.row;
                        
@@ -45,10 +45,10 @@ public class Day8(string[] lines): IDay
                             column1 = positions0.column - diff;
                         else
                             column1 = positions0.column + diff;
-                        
+
                         if (row1 >= 0 && row1 < lines.Length && column1 >= 0 && column1 < lines[0].Length)
                             antidotes.Add((row1, column1));
-                        
+                        else break;
                         if (partA) break;
                         count++;
                         positions1 = (positions0.row, positions0.column);
@@ -59,7 +59,7 @@ public class Day8(string[] lines): IDay
                     positions1 = positions[pos1];
 
                     count = 0;
-                    while (count < 200)
+                    while (true)
                     {
                         int row2 = 2 * positions1.row - positions0.row;
 
@@ -73,6 +73,7 @@ public class Day8(string[] lines): IDay
                         
                         if (row2 >= 0 && row2 < lines.Length && column2 >= 0 && column2 < lines[0].Length)
                             antidotes.Add((row2, column2));
+                        else break;
                         
                         if (partA) break;
                         count++;
