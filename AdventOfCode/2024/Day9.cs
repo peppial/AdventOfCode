@@ -2,7 +2,7 @@ namespace AdventOfCode._2024;
 
 public class Day9(string[] lines): IDay
 {
-    string line = lines[0];
+    private string line = lines[0];
     public long GetTotalPartA()
     {
         var (chars, blankBlocks, fullBlocks) = GetChars(line);
@@ -29,14 +29,11 @@ public class Day9(string[] lines): IDay
     public long GetTotalPartB()
     {
         var (chars, emptyBlocks, fullBlocks) = GetChars(line);
-
         
         var fIndex = fullBlocks.Count - 1;
-        var emIndex = 0;
-        long sum = 0;
+
         while (fIndex > 0)
         {
-            int tempLen = 0;
             for (var i = 0; i < chars.Count; i++)
             {
                 int count = 0;
@@ -51,6 +48,7 @@ public class Day9(string[] lines): IDay
                 }
 
                 if (fullBlocks[fIndex].pos < i) break;
+                
                 if (count >= fullBlocks[fIndex].length)
                 {
                     for (int j = 0; j < fullBlocks[fIndex].length; j++)
