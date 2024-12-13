@@ -19,7 +19,7 @@ public class Day12(string[] lines): IDay
     public long GetTotalPartB()
     {
         long result = 0;
-        (var regions, var grid) = GetGrid();
+        var (regions, grid) = GetGrid();
         int rows = lines.Length;
         int cols = lines[0].Length;
 
@@ -127,10 +127,10 @@ public class Day12(string[] lines): IDay
             return (row, col, Direction.None);
         }
 
-        bool IsInArea(int l, int c, char type)
+        bool IsInArea(int row, int col, char ch)
         {
-            if (l < 0 || c < 0 || l >= rows || c >= cols) return false;
-            return grid[l,c] == type;
+            if (row < 0 || col < 0 || row >= rows || col >= cols) return false;
+            return grid[row,col] == ch;
         }
     }
 
