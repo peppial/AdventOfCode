@@ -3,8 +3,6 @@ using AdventOfCode.Extensions;
 
 public class Day1(string[] lines):IDay
 {
-    private record dsdsds();
-    
     public long GetTotalPartA()
     {
         List<int> list1 = [];

@@ -40,15 +40,17 @@ public class Day13(string[] lines): IDay
             }
 
             long resA = -1, resB = -1;
-           
-            if ((pricex * by - bx* pricey) % (ax * by - bx * ay) == 0)
+
+            long crosssum = ax * by - bx * ay;
+            
+            if ((pricex * by - pricey * bx) % crosssum == 0)
             {
-                resA = (pricex * by - bx * pricey) / (ax * by - bx * ay);
+                resA = (pricex * by - pricey * bx) / crosssum;
             }
 
-            if ((ax * pricey - pricex * ay) % (ax * by - bx * ay) == 0)
+            if ((pricey * ax - pricex * ay) % crosssum == 0)
             {
-                resB = (ax * pricey - pricex * ay)/ (ax * by - bx * ay);
+                resB = (pricey * ax - pricex * ay) / crosssum;
             }
             
             if(resA != -1 && resB != -1)
