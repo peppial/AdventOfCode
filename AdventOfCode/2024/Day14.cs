@@ -6,6 +6,7 @@ public class Day14(string[] lines): IDay
 {
     int rows = 103;
     int cols = 101;
+    
     public long GetTotalPartA()
     {
         int total1 = 0;
@@ -20,7 +21,6 @@ public class Day14(string[] lines): IDay
             int c = parts[0];
             for (int i = 1; i < 101; i++)
             {
-                
                 int nc = parts[2] + c;
                 if (nc >= cols) nc -= cols;
                 if (nc <0) nc += cols;
@@ -63,7 +63,6 @@ public class Day14(string[] lines): IDay
 
         while (true)
         {
-            List<(int row, int col)> robots1 = [];
             for(int i = 0; i < robots.Count; i++)
             {
                 var robot = robots[i];
@@ -106,9 +105,7 @@ public class Day14(string[] lines): IDay
         {
             return robots.Exists(r =>
             {
-                var surroundingCols = Enumerable.Range(1, 8)
-                    .ToArray();
-                return surroundingCols.All(pos => robots.Contains((r.row, r.col + pos)));
+                return Enumerable.Range(1, 8).All(pos => robots.Contains((r.row, r.col + pos)));
             });
         }
 
