@@ -75,10 +75,9 @@ public class Day14(string[] lines): IDay
                 if (nr >= rows) nr -= rows;
                 if (nr < 0) nr += rows;
 
-                robots1.Add((nr,nc));
+                robots.RemoveAt(i);
+                robots.Insert(i, (nr, nc));
             }
-
-            robots = robots1;
 
             if (IsChristmasTree())
             {
