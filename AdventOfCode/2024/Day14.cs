@@ -86,13 +86,18 @@ public class Day14(string[] lines): IDay
                 {
                     for (int j = 0; j < cols; j++)
                     {
-                        if(robots.Contains((i,j))) Console.Write('1');
-                        else Console.Write('.');
+                        if (robots.Contains((i, j))) 
+                            Console.Write('1');
+                        else 
+                            Console.Write('.');
                     }
+
                     Console.WriteLine();
                 }
-               break;
+
+                break;
             }
+
             count++;
         }
 
@@ -100,12 +105,12 @@ public class Day14(string[] lines): IDay
         
         bool IsChristmasTree()
         {
-            return robots.Count(r =>
+            return robots.Exists(r =>
             {
-                var surroundingCols = Enumerable.Range(1, 5)
+                var surroundingCols = Enumerable.Range(1, 8)
                     .ToArray();
-                return surroundingCols.All(pos => robots.Contains((r.row, r.col+ pos)));
-            })>10;
+                return surroundingCols.All(pos => robots.Contains((r.row, r.col + pos)));
+            });
         }
 
     }
