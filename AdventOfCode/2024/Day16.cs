@@ -97,10 +97,11 @@ public class Day16: IDay
                 {
                     Console.WriteLine(pos.path);
                     if (partA) return nextscore;
-                    if(nextscore>bestScore) continue;
+                    if(nextscore>bestScore) break;
                     foreach(var s in pos.set) finalSet.Add(s);
                     bestScore = nextscore;
                 }
+                
                 if (lines[pos2.row][pos2.col] == '.')
                 {   
                     AddToQueue(pos2.row, pos2.col, EnumUtils.IncrementEnum(direction), nextscore, pos.set,pos.path + $"({pos2.row}, {pos2.col})");
