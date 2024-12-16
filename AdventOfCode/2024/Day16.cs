@@ -72,7 +72,7 @@ public class Day16: IDay
                     
                     Console.WriteLine(pos.path);
                     if (partA) return nextscore;
-                    if(nextscore>bestScore) continue;
+                    if(nextscore>bestScore) break;
                     foreach(var s in pos.set) finalSet.Add(s);
                     bestScore = nextscore;
                 }
@@ -121,7 +121,7 @@ public class Day16: IDay
                 {
                     Console.WriteLine(pos.path);
                     if (partA) return nextscore;
-                    if(nextscore>bestScore) continue;
+                    if(nextscore>bestScore) break;
                     foreach(var s in pos.set) finalSet.Add(s);
                     bestScore = nextscore;
                 }
