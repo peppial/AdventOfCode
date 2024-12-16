@@ -1,4 +1,4 @@
-using static Advent2023.MathUtils;
+using static AdventOfCode.Utils.MathUtils;
 
 using AdventOfCode.Extensions;
 namespace Advent2023;

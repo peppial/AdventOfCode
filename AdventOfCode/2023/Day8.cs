@@ -1,5 +1,6 @@
 namespace Advent2023;
 
+using static AdventOfCode.Utils.MathUtils;
 using AdventOfCode.Extensions;
 readonly record struct Instruction(string Left, string Right);
 
@@ -85,6 +86,6 @@ public class Day8(string[] lines):IDay
 
         }
 
-        return MathUtils.LCM(lcm.ToArray());
+        return LCM(lcm.ToArray());
     }
 }

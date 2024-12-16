@@ -1,5 +1,4 @@
-namespace Advent2023;
-
+namespace AdventOfCode.Utils;
 public static class MathUtils
 {
      public static long LCM(long[] numbers)

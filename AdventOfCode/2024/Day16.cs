@@ -1,4 +1,4 @@
-using Advent2023;
+using static AdventOfCode.Utils.EnumUtils;
 
 namespace AdventOfCode._2024;
 
@@ -103,7 +103,7 @@ public class Day16: IDay
                 
                 if (lines[pos2.row][pos2.col] == '.')
                 {   
-                    AddToQueue(pos2.row, pos2.col, EnumUtils.IncrementEnum(direction), nextscore, pos.set,pos.path + $"({pos2.row}, {pos2.col})");
+                    AddToQueue(pos2.row, pos2.col, IncrementEnum(direction), nextscore, pos.set,pos.path + $"({pos2.row}, {pos2.col})");
                 }
             }
             
@@ -128,7 +128,7 @@ public class Day16: IDay
 
                 if (lines[pos3.row][pos3.col] == '.')
                 {
-                    AddToQueue(pos3.row, pos3.col, EnumUtils.DecrementEnum(direction), nextscore, pos.set,pos.path + $"({pos3.row}, {pos3.col})");
+                    AddToQueue(pos3.row, pos3.col, DecrementEnum(direction), nextscore, pos.set,pos.path + $"({pos3.row}, {pos3.col})");
                 }
             }
         }

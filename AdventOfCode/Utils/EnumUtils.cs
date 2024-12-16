@@ -1,5 +1,4 @@
-namespace Advent2023;
-
+namespace AdventOfCode.Utils;
 public class EnumUtils
 {
     public static T IncrementEnum<T>(T currentValue) where T : Enum
