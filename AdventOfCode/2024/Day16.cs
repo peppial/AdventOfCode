@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using Advent2023;
 
 namespace AdventOfCode._2024;
