@@ -8,14 +8,14 @@ public class Day17: IDay
     private long registerA;
     private long registerB;
     private long registerC;
-    private int[] program;
+    private long[] program;
     private List<long> output = [];
     private Dictionary<long, Action<long>> operations;
     
     public Day17(string[] lines)
     {
         registerA = lines[0].GetNumbers()[0];
-        program = lines[4].GetNumbers();
+        program = lines[4].GetNumbersLong();
         
         operations = new Dictionary<long, Action<long>>
         {
@@ -66,10 +66,11 @@ public class Day17: IDay
 
         return (string.Join(',', output), output);
 
-        void DoOperation(long code, long operand)
-        {
-            operations[code](operand);
-        }
+        
+    }
+    void DoOperation(long code, long operand)
+    {
+        operations[code](operand);
     }
 
     public long GetTotalPartB()
@@ -79,54 +80,18 @@ public class Day17: IDay
         while (true)
         {
             int insPointer = 0;
-            List<int> output = [];
-            long a = startA;
-            long b = 0;
-            long c = 0;
-
-            while (insPointer < program.Length)
+            output = [];
+            
+            registerA = startA;
+            long i = 0;
+            while (i >= 0 && i < program.Length - 1)
             {
-                int opcode = program[insPointer];
-                int operand = program[insPointer + 1];
-                long[] operands = [ 0, 1, 2, 3, a, b, c ];
+                long opCode = program[i];
+                long op = program[i + 1];
 
-                switch (opcode)
-                {
-                    case 0: // adv
-                        a = a / (long)Math.Pow(2, operands[operand]);
-                        insPointer += 2;
-                        break;
-                    case 1: // bxl
-                        b = b ^ operand;
-                        insPointer += 2;
-                        break;
-                    case 2: // bst
-                        b = operands[operand] % 8;
-                        insPointer += 2;
-                        break;
-                    case 3: // jnz
-                        if (a != 0)
-                            insPointer = operand;
-                        else
-                            insPointer += 2;
-                        break;
-                    case 4: // bxc
-                        b = b ^ c;
-                        insPointer += 2;
-                        break;
-                    case 5: // out
-                        output.Add((int)(operands[operand] % 8));
-                        insPointer += 2;
-                        break;
-                    case 6: // bdv
-                        b = a / (long)Math.Pow(2, operands[operand]);
-                        insPointer += 2;
-                        break;
-                    case 7: // cdv
-                        c = a / (long)Math.Pow(2, operands[operand]);
-                        insPointer += 2;
-                        break;
-                }
+                DoOperation(opCode, op);
+                i = i + 2;
+                if (opCode == 3 && registerA > 0) i = op;
             }
 
             bool foundDifference = false;
@@ -145,7 +110,7 @@ public class Day17: IDay
             if (output.Count > program.Length)
                 break;
 
-            if (!foundDifference && Enumerable.SequenceEqual(output, program))
+            if (!foundDifference && output.SequenceEqual(program.ToList()))
             {
                 Console.WriteLine(startA);
                 break;
