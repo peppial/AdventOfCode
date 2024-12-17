@@ -10,29 +10,42 @@ public class Day17: IDay
     private long registerC;
     private int[] program;
     private List<long> output = [];
-    private Dictionary<long, Func<long, long>> operations;
+    private Dictionary<long, Action<long>> operations;
     
     public Day17(string[] lines)
     {
         registerA = lines[0].GetNumbers()[0];
         program = lines[4].GetNumbers();
         
-        operations = new Dictionary<long, Func<long, long>>
+        operations = new Dictionary<long, Action<long>>
         {
-            { 0, Adv },
-            { 1, Bxl },
-            { 2, Bst },
-            { 3, Jnz },
-            { 4, Bxc },
-            { 5, Out },
-            { 6, Bdv },
-            { 7, Cdv }
+            { 0, (op)=>registerA /= (int)Math.Pow(2, GetValue(op)) },
+            { 1, (op)=>registerB ^= op },
+            { 2, (op)=>registerB = GetValue(op) % 8 },
+            { 3, (_) => { }  },
+            { 4, (op)=>registerB ^= registerC} ,
+            { 5, (op)=>output.Add(GetValue(op) % 8) } ,
+            { 6, (op)=>registerB = registerA / (int)Math.Pow(2, GetValue(op))  },
+            { 7, (op)=>registerC = registerA / (int)Math.Pow(2, GetValue(op))  }
         }; 
-
+        long GetValue(long operand)
+        {
+            return operand switch
+            {
+                0 => 0,
+                1 => 1,
+                2 => 2,
+                3 => 3,
+                4 => registerA,
+                5 => registerB,
+                6 => registerC,
+                7 => throw new ArgumentException("Invalid operand"),
+            };
+        }
     }
+
     public long GetTotalPartA()
     {
-
         Console.WriteLine(GetOutput(registerA).Item1);
         return 0;
     }
@@ -41,15 +54,22 @@ public class Day17: IDay
     {
         long i = 0;
         registerA = regA;
-        while (i>=0 && i < program.Length - 1)
+        while (i >= 0 && i < program.Length - 1)
         {
             long opCode = program[i];
             long op = program[i + 1];
-    
-            long result = DoOperation(opCode, op);
-            i = result >= 0 ? result : i + 2;
+
+            DoOperation(opCode, op);
+            i = i + 2;
+            if (opCode == 3 && registerA > 0) i = op;
         }
+
         return (string.Join(',', output), output);
+
+        void DoOperation(long code, long operand)
+        {
+            operations[code](operand);
+        }
     }
 
     public long GetTotalPartB()
@@ -134,89 +154,5 @@ public class Day17: IDay
         }
 
         return 0;
-    }
-
-    private long GetValue(long operant)
-    {
-        return operant switch
-        {
-            0 => 0,
-            1 => 1,
-            2 => 2,
-            3 => 3,
-            4 => registerA,
-            5 => registerB,
-            6 => registerC,
-            7 => throw new ArgumentException("Invalid operand"),
-        };
-    }
-    private long Adv(long comboOp)
-    {
-        var value = GetValue(comboOp);
-        var result = registerA / (int)Math.Pow(2, value);
-        
-        registerA = result;
-        return -1;
-    }
-
-    private long Bxl(long literalOp)
-    {
-        var result = registerB ^ literalOp;
-        
-        registerB = result;
-        return -1;
-    }
-
-    private long Bst(long comboOp)
-    {
-        var value = GetValue(comboOp);
-        var result = value % 8;
-        
-        registerB = result;
-        return -1;
-    }
-
-    private long Jnz(long literalOp)
-    {
-        return registerA == 0 ? -1 : literalOp;
-    }
-
-    private long Bxc(long _)
-    {
-        long result = registerB ^ registerC;
-        
-        registerB = result;
-        return -1;
-    }
-
-    private long Out(long comboOp)
-    {
-        long value = GetValue(comboOp);
-        
-        output.Add(value % 8);
-        return -1;
-    }
-
-    private long Bdv(long comboOp)
-    {
-        long value = GetValue(comboOp);
-        long result = registerA / (int)Math.Pow(2, value);
-        
-        registerB = result;
-        return -1;
-    }
-
-    private long Cdv(long comboOp)
-    {
-        long value = GetValue(comboOp);
-        long result = registerA / (int)Math.Pow(2, value);
-        
-        registerC = result;
-        return -1;
-    }
-
-    public long DoOperation(long code, long operand)
-    {
-        return operations[code](operand);
     }
 }
