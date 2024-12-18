@@ -5,8 +5,7 @@ namespace AdventOfCode._2024;
 
 public class Day18: IDay
 {
-    private List<(int, int)> inputA=[];
-    private List<(int, int)> inputB=[];
+    private List<(int, int)> input=[];
     private const int size = 70;
     private (int, int)[] Directions = [ (0, 1), (0, -1), (-1, 0), (1, 0)];
     
@@ -17,20 +16,14 @@ public class Day18: IDay
         {
             var parts = line.GetNumbers();
            
-            inputB.Add((parts[0], parts[1]));
-            count++;
-            if (count < 1024)
-            {
-                inputA.Add((parts[0], parts[1]));
-            };
-            
+            input.Add((parts[0], parts[1]));
         }
 
         for (int i = 0; i <= size; i++)
         {
             for (int j = 0; j <= size; j++)
             {
-                if(inputA.Contains((i,j))) Console.Write("#");
+                if(input.Contains((i,j))) Console.Write("#");
                 else Console.Write(".");
             }
             Console.WriteLine();
@@ -39,23 +32,23 @@ public class Day18: IDay
     
     public long GetTotalPartA()
     {  
-        return FindMinPath(inputA, 1024);
+        return FindMinPath(input, 1024);
     }
 
     public long GetTotalPartB()
     {
         int low = 1;
-        int high = inputB.Count;
+        int high = input.Count;
         while (low < high)
         {
             int mid = (low + high) / 2;
-            if (FindMinPath(inputB, mid) == -1)
+            if (FindMinPath(input, mid) == -1)
                 high = mid;
             else
                 low = mid + 1;
         }
 
-        Console.WriteLine(string.Join(", ", inputB[low - 1]));
+        Console.WriteLine(string.Join(", ", input[low - 1]));
         return 0;
     }
     
@@ -83,7 +76,7 @@ public class Day18: IDay
                 int newX = x + dx;
                 int newY = y + dy;
 
-                if (newX >= 0 && newX <= size && newY >= 0 && newY <= size)
+                if (newX is >= 0 and <= size && newY is >= 0 and <= size)
                 {
                     queue.Enqueue((d + 1, newX, newY), d + 1);
                 }
