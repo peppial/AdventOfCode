@@ -1,5 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
-
 namespace AdventOfCode._2024;
 
 public class Day19 : IDay
@@ -26,17 +24,16 @@ public class Day19 : IDay
 
         bool IsPossible(string design)
         {
-            bool isPossible = false;
             foreach (string p in patterns)
             {
                 if (p == design) return true;
                 if (design.StartsWith(p))
                 {
-                    isPossible = isPossible || IsPossible(design[p.Length..]);
+                    if(IsPossible(design[p.Length..])) return true;
                 }
             }
 
-            return isPossible;
+            return false;
         }
 
         return count;
