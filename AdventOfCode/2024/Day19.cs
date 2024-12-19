@@ -49,13 +49,13 @@ public class Day19: IDay
         
         return count;
 
-        static long CalculatePatterns(string pat, string[] patterns)
+        static long CalculatePatterns(string design, string[] patterns)
         {
-            long[] dp = new long[pat.Length + 1];
+            long[] dp = new long[design.Length + 1];
             
             dp[0] = 1;
 
-            for (int i = 1; i <= pat.Length; i++)
+            for (int i = 1; i <= design.Length; i++)
             {
                 dp[i] = 0;
                 
@@ -63,7 +63,7 @@ public class Day19: IDay
                 {
                     if (pattern.Length > i) continue;
                 
-                    string subPattern = pat.Substring(i - pattern.Length, pattern.Length);
+                    string subPattern = design.Substring(i - pattern.Length, pattern.Length);
                     
                     if (subPattern == pattern)
                     {
