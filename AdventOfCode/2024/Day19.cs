@@ -2,25 +2,26 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace AdventOfCode._2024;
 
-public class Day19: IDay
+public class Day19 : IDay
 {
     private readonly string[] patterns;
-    private readonly List<string> designs=[];
+    private readonly List<string> designs = [];
+
     public Day19(string[] lines)
     {
-        patterns=lines[0].Split([' ', ','], StringSplitOptions.RemoveEmptyEntries);
+        patterns = lines[0].Split([' ', ','], StringSplitOptions.RemoveEmptyEntries);
         for (int i = 2; i < lines.Length; i++)
         {
             designs.Add(lines[i]);
         }
-        
     }
+
     public long GetTotalPartA()
     {
         int count = 0;
         foreach (var design in designs)
         {
-            if(IsPossible(design)) count++;
+            if (IsPossible(design)) count++;
         }
 
         bool IsPossible(string design)
@@ -28,7 +29,7 @@ public class Day19: IDay
             bool isPossible = false;
             foreach (string p in patterns)
             {
-                if(p == design) return true;
+                if (p == design) return true;
                 if (design.StartsWith(p))
                 {
                     isPossible = isPossible || IsPossible(design[p.Length..]);
@@ -37,14 +38,14 @@ public class Day19: IDay
 
             return isPossible;
         }
-        
+
         return count;
     }
 
     public long GetTotalPartB()
     {
         long count = 0;
-      
+
         foreach (var design in designs)
         {
             Dictionary<string, long> dict = [];
@@ -58,7 +59,7 @@ public class Day19: IDay
             if (dict.ContainsKey(design)) return dict[design];
 
             long c = 0;
-            
+
             foreach (string p in patterns)
             {
                 if (p == design)
@@ -68,7 +69,6 @@ public class Day19: IDay
 
                 if (design.StartsWith(p))
                 {
-
                     c += CountPossible(design[p.Length..], dict);
                 }
             }
@@ -77,7 +77,7 @@ public class Day19: IDay
             return c;
         }
     }
-    
+
     public long GetTotalPartB_DP()
     {
         int count = 0;
