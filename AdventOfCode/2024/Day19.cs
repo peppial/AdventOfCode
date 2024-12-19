@@ -43,6 +43,43 @@ public class Day19: IDay
 
     public long GetTotalPartB()
     {
+        long count = 0;
+      
+        foreach (var design in designs)
+        {
+            Dictionary<string, long> dict = [];
+            count += CountPossible(design, dict);
+        }
+
+        return count;
+
+        long CountPossible(string design, Dictionary<string, long> dict)
+        {
+            if (dict.ContainsKey(design)) return dict[design];
+
+            long c = 0;
+            
+            foreach (string p in patterns)
+            {
+                if (p == design)
+                {
+                    c++;
+                }
+
+                if (design.StartsWith(p))
+                {
+
+                    c += CountPossible(design[p.Length..], dict);
+                }
+            }
+
+            dict.Add(design, c);
+            return c;
+        }
+    }
+    
+    public long GetTotalPartB_DP()
+    {
         int count = 0;
         Console.WriteLine(designs.Sum(design => CalculatePatterns(design, patterns)));
 
