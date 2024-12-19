@@ -22,6 +22,8 @@ public class Day19 : IDay
             if (IsPossible(design)) count++;
         }
 
+        return count;
+        
         bool IsPossible(string design)
         {
             foreach (string p in patterns)
@@ -32,11 +34,9 @@ public class Day19 : IDay
                     if(IsPossible(design[p.Length..])) return true;
                 }
             }
-
+            
             return false;
         }
-
-        return count;
     }
 
     public long GetTotalPartB()
@@ -59,15 +59,9 @@ public class Day19 : IDay
 
             foreach (string p in patterns)
             {
-                if (p == design)
-                {
-                    c++;
-                }
+                if (p == design) c++;
 
-                if (design.StartsWith(p))
-                {
-                    c += CountPossible(design[p.Length..], dict);
-                }
+                if (design.StartsWith(p)) c += CountPossible(design[p.Length..], dict);
             }
 
             dict.Add(design, c);
