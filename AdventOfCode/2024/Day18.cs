@@ -11,7 +11,6 @@ public class Day18: IDay
     
     public Day18(string[] lines)
     {
-        int count = 0;
         foreach (var line in lines)
         {
             var parts = line.GetNumbers();
