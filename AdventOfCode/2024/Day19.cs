@@ -4,8 +4,8 @@ namespace AdventOfCode._2024;
 
 public class Day19: IDay
 {
-    private string[] patterns;
-    private List<string> designs=[];
+    private readonly string[] patterns;
+    private readonly List<string> designs=[];
     public Day19(string[] lines)
     {
         patterns=lines[0].Split([' ', ','], StringSplitOptions.RemoveEmptyEntries);
@@ -25,14 +25,13 @@ public class Day19: IDay
 
         bool IsPossible(string design)
         {
-            List<string> poss = [];
             bool isPossible = false;
             foreach (string p in patterns)
             {
                 if(p == design) return true;
                 if (design.StartsWith(p))
                 {
-                    isPossible=isPossible||IsPossible(design[p.Length..]);
+                    isPossible = isPossible || IsPossible(design[p.Length..]);
                 }
             }
 
@@ -46,32 +45,32 @@ public class Day19: IDay
     {
         int count = 0;
         Console.WriteLine(designs.Sum(design => CalculatePatterns(design, patterns)));
-        
+
         return count;
 
         static long CalculatePatterns(string design, string[] patterns)
         {
             long[] dp = new long[design.Length + 1];
-            
+
             dp[0] = 1;
 
             for (int i = 1; i <= design.Length; i++)
             {
                 dp[i] = 0;
-                
+
                 foreach (string pattern in patterns)
                 {
                     if (pattern.Length > i) continue;
-                
+
                     string subPattern = design.Substring(i - pattern.Length, pattern.Length);
-                    
+
                     if (subPattern == pattern)
                     {
                         dp[i] += dp[i - pattern.Length];
                     }
                 }
             }
-        
+
             return dp[^1];
         }
     }
