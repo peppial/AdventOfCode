@@ -3,6 +3,6 @@ using AdventOfCode._2024;
 
 Console.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff tt")) ;
 var lines = File.ReadAllLines("Test.txt"); 
-var day = new Day20(lines);
+var day = new Day21(lines);
 Console.WriteLine("-----------");
-Console.WriteLine(day.GetTotalPartA());
+Console.WriteLine(day.GetTotalPartB());
