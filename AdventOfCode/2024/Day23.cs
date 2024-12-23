@@ -5,7 +5,7 @@ namespace AdventOfCode._2024;
 public class Day23 : IDay
 {
     private readonly Dictionary<string, HashSet<string>> computers = [];
-    
+
     public Day23(string[] lines)
     {
         foreach (var line in lines)
@@ -18,12 +18,13 @@ public class Day23 : IDay
             computers[id2].Add(id1);
         }
     }
+
     public long GetTotalPartA()
     {
         HashSet<string> tripples = [];
         foreach (var computer1 in computers.Keys)
         {
-            if (computer1[0] =='t')
+            if (computer1[0] == 't')
             {
                 foreach (var computer2 in computers[computer1])
                 {
@@ -39,11 +40,35 @@ public class Day23 : IDay
                 }
             }
         }
+
         return tripples.Count;
     }
+
     public long GetTotalPartB()
     {
+        //Ineffective
+        /*
         int maxLanSize = computers.Values.Max(x => x.Count);
+        var combs = computers.Keys.ToArray().Combinations(4).ToArray();
+        Dictionary<string, HashSet<string>> hashes = [];
+        foreach (var comb in combs)
+        {
+            comb.Sort();
+            hashes.Add(string.Join(",",comb),new HashSet<string>(comb));
+        }
+        foreach (var comb in hashes)
+        {
+            if (CheckLanIsValid(comb.Value))
+            {
+                {
+                    Console.WriteLine($"{comb.Value}");
+                    return 0;
+                }
+            }
+        }
+
+        return 0;
+        */
         Dictionary<string, HashSet<string>> tests = [];
         foreach (var computer in computers)
         {
@@ -51,9 +76,10 @@ public class Day23 : IDay
             test.Add(computer.Key);
             var l = test.ToList();
             l.Sort();
-            tests.TryAdd(string.Join(",",l), test);
+            tests.TryAdd(string.Join(",", l), test);
         }
-        while (tests.First().Value.Count>1)
+
+        while (tests.First().Value.Count > 1)
         {
             foreach (var test in tests)
             {
@@ -65,6 +91,7 @@ public class Day23 : IDay
                     }
                 }
             }
+
             Dictionary<string, HashSet<string>> newTests = [];
             foreach (var test in tests)
             {
@@ -77,21 +104,25 @@ public class Day23 : IDay
                     newTests.TryAdd(string.Join(",", l), newTestVal);
                 }
             }
+
             tests = newTests;
         }
+
         return 0;
     }
+
     private bool CheckLanIsValid(HashSet<string> lan)
     {
         foreach (var computer in lan)
         {
             foreach (var otherComputer in lan)
             {
-                if ((!computers[computer].Contains(otherComputer)) && (computer!=otherComputer))
+                if ((!computers[computer].Contains(otherComputer)) && (computer != otherComputer))
                     return false;
             }
         }
+
         return true;
     }
-    
+
 }
