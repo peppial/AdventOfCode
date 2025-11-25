@@ -1,5 +1,6 @@
 using AdventOfCode.Extensions;
 
+namespace AdventOfCode._2024;
 
 public class Day1(string[] lines):IDay
 {
