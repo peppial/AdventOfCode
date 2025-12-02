@@ -31,13 +31,13 @@ public class Day1(string[] lines):IDay
             if (direction == 'L') newPosition = currentPosition - remainder;
             else newPosition = currentPosition + remainder;
 
-            int finalPos = (newPosition + 100) % 100;
+            int finalPosition = (newPosition + 100) % 100;
 
             if (all)
             {
                 if (remainder > 0)
                 {
-                    if (finalPos == 0)
+                    if (finalPosition == 0)
                     {
                         result++;
                     }
@@ -51,10 +51,10 @@ public class Day1(string[] lines):IDay
             }
             else
             {
-                if (finalPos == 0) result++;
+                if (finalPosition == 0) result++;
             }
 
-            currentPosition = finalPos;
+            currentPosition = finalPosition;
 
         }
 
