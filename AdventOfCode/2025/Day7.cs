@@ -11,11 +11,6 @@ public class Day7 : IDay
     public Day7(string[] lines)
     {
         _lines = lines;
-        ResetGrid();
-    }
-
-    private void ResetGrid()
-    {
         grid = new char[_lines.Length][];
         int idx = 0;
         foreach (var line in _lines)
@@ -26,46 +21,34 @@ public class Day7 : IDay
         marker = _lines[0].IndexOf('S');
     }
 
-    public long GetTotalPartA()
-    {
-        ResetGrid();
-        return CalculatePartA();
-    }
+    public long GetTotalPartA() => CountSplits(0, marker, new HashSet<(int, int)>());
 
-    public long GetTotalPartB()
-    {
-        ResetGrid();
-        return CountTimelines(0, marker, new Dictionary<(int, int), long>());
-    }
+    public long GetTotalPartB() => CountTimelines(0, marker, new Dictionary<(int, int), long>());
 
-    private long CalculatePartA()
+    private long CountSplits(int r, int c, HashSet<(int, int)> visited)
     {
-        long total = 0;
-        if (grid.Length > 1)
+        if (c < 0 || c >= grid[0].Length)
         {
-            grid[1][marker] = '|';
+            return 0;
         }
 
-        for (int i = 2; i < grid.Length; i++)
+        for (int nextR = r + 1; nextR < grid.Length; nextR++)
         {
-            for (int j = 0; j < grid[0].Length; j++)
+            if (grid[nextR][c] == '^')
             {
-                if (grid[i - 1][j] == '|')
+                if (visited.Contains((nextR, c)))
                 {
-                    if (grid[i][j] == '.')
-                    {
-                        grid[i][j] = '|';
-                    }
-                    else if (grid[i][j] == '^')
-                    {
-                        if (j + 1 < grid[0].Length) grid[i][j + 1] = '|';
-                        if (j - 1 >= 0) grid[i][j - 1] = '|';
-                        total++;
-                    }
+                    return 0;
                 }
+
+                visited.Add((nextR, c));
+                long left = CountSplits(nextR, c - 1, visited);
+                long right = CountSplits(nextR, c + 1, visited);
+                return 1 + left + right;
             }
         }
-        return total;
+
+        return 0;
     }
 
     private long CountTimelines(int r, int c, Dictionary<(int, int), long> memo)
