@@ -16,8 +16,8 @@ public class Day12(string[] lines) : IDay
         {
             var numbers = lines[i].GetNumbers();
             var size = numbers[0] * numbers[1];
-            long sum = numbers[2..].Sum() * 8;
-            if (size > sum) count++;
+            long sum = numbers[2..].Sum() * 9;
+            if (size >= sum) count++;
 
         }
 
